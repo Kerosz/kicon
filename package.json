@@ -31,5 +31,10 @@
   },
   "scripty": {
     "path": "./scripts/workspace"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY-GIT-PARAMS"
+    }
   }
 }
