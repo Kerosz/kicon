@@ -1,6 +1,6 @@
 CREATE TABLE addresses (
-    id BIGSERIAL PRIMARY KEY,
-    user_id BIGINT REFERENCES customers(id),
+    id VARCHAR(50) PRIMARY KEY,
+    customer_id VARCHAR(50) REFERENCES customers(id),
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     address1 VARCHAR(255) NOT NULL,
@@ -10,6 +10,6 @@ CREATE TABLE addresses (
     state VARCHAR(255) NOT NULL,
     postal_code VARCHAR(50),
     phone VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW(),
-    updated_at TIMESTAMP DEFAULT NOW()
+    created_at BIGINT NOT NULL,
+    updated_at BIGINT NOT NULL
 )

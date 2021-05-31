@@ -1,5 +1,5 @@
 CREATE TABLE product_categories (
-    id BIGSERIAL PRIMARY KEY,
-    product_id BIGINT REFERENCES products(id),
-    category_id BIGINT REFERENCES categories(id)
+    id VARCHAR(50) PRIMARY KEY,
+    product_id VARCHAR(50) REFERENCES products(id),
+    category_id VARCHAR(50) REFERENCES categories(id)
 )

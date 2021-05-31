@@ -2,7 +2,7 @@
   "extends": "../tsconfig.settings.json",
   "compilerOptions": {
     "composite": true,
-    "types": [],
+    "types": ["jasmine"],
     "declaration": true,
     "outDir": "dist",
     "rootDir": "src",

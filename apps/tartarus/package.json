@@ -2,16 +2,19 @@
   "name": "@kitpo/tartarus",
   "version": "0.2.0",
   "description": "Tartarus package is used for our web store backend.",
+  "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "watch": "tsc-watch --esModuleInterop src/index.ts --outDir ./dist --onSuccess 'node ./dist/index.js'",
+    "test-tartarus": "scripty",
+    "test": "yarn test-tartarus",
     "lint": "scripty",
-    "lint:fix": "scripty",
+    "lint-fix": "scripty",
     "clean": "rimraf dist *.tsbuildinfo",
     "prettier": "scripty",
-    "prettier:fix": "scripty"
+    "prettier-fix": "yarn prettier --config ../../.prettierrc --write 'src/**/*.ts'"
   },
   "dependencies": {
     "chalk": "^4.1.1",
@@ -20,13 +23,15 @@
     "db-migrate-pg": "^1.2.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.12",
     "@types/jasmine": "^3.7.6",
     "@types/pg": "^8.6.0",
+    "@types/uuid": "^8.3.0",
     "jasmine": "^3.7.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.3.3",
