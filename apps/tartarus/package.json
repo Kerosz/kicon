@@ -1,6 +1,6 @@
 {
   "name": "@kitpo/tartarus",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Tartarus package is used for our web store backend.",
   "license": "BSD-2-Clause",
   "main": "dist/index.js",

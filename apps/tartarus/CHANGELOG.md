@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/Kerosz/kitpo/compare/@kitpo/tartarus@0.2.0...@kitpo/tartarus@0.3.0) (2021-05-31)
+
+
+### Features
+
+* **tartarus:** added product model / controller / router and tests && general improvements ([c5a18f5](https://github.com/Kerosz/kitpo/commit/c5a18f56a0f33b07039442f881306a02ad594f25))
+
+
+
+
+
 # [0.2.0](https://github.com/Kerosz/kitpo/compare/@kitpo/tartarus@0.1.2...@kitpo/tartarus@0.2.0) (2021-05-30)
 
 
