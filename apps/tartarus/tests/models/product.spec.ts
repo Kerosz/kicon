@@ -7,8 +7,8 @@ import type { Product, ProductWithoutDbInserts } from "../../src/types/db-schema
 
 describe("ProductStore Model", function () {
   const idMock = uuid();
-  const createdAtMock = Date.now();
-  const updatedAtMock = Date.now();
+  const createdAtMock = Date.now().toString();
+  const updatedAtMock = Date.now().toString();
 
   const productMock: Product = {
     id: idMock,
@@ -17,17 +17,17 @@ describe("ProductStore Model", function () {
       "Designed for those who defy limits and change the world, the 16-inch MacBook Pro is by far the most powerful notebook we have ever made. With an immersive Retina display, super fast processors, advanced graphics, the largest battery capacity ever in a MacBook Pro, Magic Keyboard, and massive storage, it's the ultimate pro notebook for the ultimate user.",
     price: "2399",
     stock: 10,
-    created_at: createdAtMock.toString(),
-    updated_at: updatedAtMock.toString(),
+    created_at: createdAtMock,
+    updated_at: updatedAtMock,
   };
 
-  describe("createProduct()", function () {
+  describe("saveProduct()", function () {
     it("method should be defined", function () {
-      expect(store.createProduct).toBeDefined();
+      expect(store.saveProduct).toBeDefined();
     });
 
     it("should add a new product", async function () {
-      const result = await store.createProduct(
+      const result = await store.saveProduct(
         {
           name: productMock.name,
           description: productMock.description,
@@ -78,10 +78,10 @@ describe("ProductStore Model", function () {
         updated_at: Date.now().toString(),
       } as Partial<ProductWithoutDbInserts>;
 
-      const restul: Product = await store.updateProduct(idMock, newValues);
+      const result: Product = await store.updateProduct(idMock, newValues);
       const expectedResult: Product = { ...productMock, ...newValues };
 
-      expect(restul).toEqual(expectedResult);
+      expect(result).toEqual(expectedResult);
     });
   });
 

@@ -1,10 +1,10 @@
 // packages
+import chalk from "chalk";
 import { DisplayProcessor, SpecReporter, StacktraceOption } from "jasmine-spec-reporter";
-import SuiteInfo = jasmine.JasmineStartedInfo;
 
 class CustomProcessor extends DisplayProcessor {
-  public displayJasmineStarted(_info: SuiteInfo, log: string): string {
-    return `TypeScript ${log}`;
+  public displayJasmineStarted(_info: jasmine.SuiteResult, log: string): string {
+    return `${chalk.green("✓")} Kicon ${log}`;
   }
 }
 

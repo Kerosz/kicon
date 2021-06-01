@@ -2,13 +2,14 @@
 import { Router } from "express";
 // internals
 import productsController from "../controllers/products-controller";
+import useAsync from "../middleware/use-async";
 
 const products = Router();
 
-products.get("/", productsController.showAll);
-products.get("/:id", productsController.show);
-products.post("/", productsController.create);
-products.patch("/:id", productsController.update);
-products.delete("/:id", productsController.delete);
+products.get("/", useAsync(productsController.showAll));
+products.get("/:id", useAsync(productsController.show));
+products.post("/", useAsync(productsController.create));
+products.patch("/:id", useAsync(productsController.update));
+products.delete("/:id", useAsync(productsController.remove));
 
 export default products;

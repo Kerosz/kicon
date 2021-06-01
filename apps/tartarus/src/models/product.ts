@@ -9,8 +9,10 @@ import type { Product, ProductTestParams, ProductWithoutDbInserts } from "../typ
 class ProductStore {
   /**
    * @description Method used to query a list of all the products
+   *
+   * @returns A list of all products data
    */
-  async getAllProducts(): Promise<Product[]> {
+  public async getAllProducts(): Promise<Product[]> {
     try {
       const sql = "SELECT * FROM products";
 
@@ -26,9 +28,11 @@ class ProductStore {
 
   /**
    * @description Method used to query a single product based on it's `ID`
+   *
    * @param productId The `ID` of the product to be queried
+   * @returns Data of the product with the `ID` specified
    */
-  async getProductById(productId: string): Promise<Product> {
+  public async getProductById(productId: string): Promise<Product> {
     try {
       const sql = "SELECT * FROM products WHERE id=($1)";
 
@@ -46,10 +50,12 @@ class ProductStore {
 
   /**
    * @description Method used to add a new product to the DB
+   *
    * @param p New product data object
    * @param testParams Custom params used for testing purposes
+   * @returns The new created product data
    */
-  async createProduct(
+  public async saveProduct(
     p: ProductWithoutDbInserts,
     testParams?: ProductTestParams
   ): Promise<Product> {
@@ -80,10 +86,15 @@ class ProductStore {
 
   /**
    * @description Method for updating an existent product based on it's `ID`
+   *
    * @param productId The `ID` of the product to be updated
    * @param data Data object containing the values to be updated
+   * @returns The updated product data
    */
-  async updateProduct(productId: string, data: Partial<ProductWithoutDbInserts>): Promise<Product> {
+  public async updateProduct(
+    productId: string,
+    data: Partial<ProductWithoutDbInserts>
+  ): Promise<Product> {
     try {
       const { sql, params } = generateUpdateSqlQuery({
         tablename: "products",
@@ -105,9 +116,10 @@ class ProductStore {
 
   /**
    * @description Method used to delete an existing product based on it's `ID`
+   *
    * @param productId The `ID` of the product to be deleted
    */
-  async deleteProduct(productId: string): Promise<void> {
+  public async deleteProduct(productId: string): Promise<void> {
     try {
       const sql = "DELETE FROM products WHERE id=($1)";
 

@@ -12,8 +12,13 @@ export interface SqlQueryReturn {
 /**
  * @description Generates the SQL query and params using UPDATE clause
  * @param args SQL query parameters
+ * @returns An object containing the SQL query and the params array
  */
 export function generateUpdateSqlQuery(args: SqlQueryParams): SqlQueryReturn {
+  if (!args.tablename) throw new Error("'tablename' argument must be provided!");
+  if (!args.condition) throw new Error("'condition' argument must be provided!");
+  if (!args.rawData) throw new Error("'rawData' argument must be provided!");
+
   const { tablename, condition, rawData } = args;
 
   let sql: string = `UPDATE ${tablename} SET`;

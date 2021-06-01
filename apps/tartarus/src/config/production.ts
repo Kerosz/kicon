@@ -10,7 +10,7 @@ export default {
 
   /** API configs */
   api: {
-    prefix: process.env.API_VERSION,
+    prefix: process.env.API_VERSION as string,
   },
 
   /** Postgres Configuration */
