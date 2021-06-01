@@ -1,0 +1,7 @@
+{
+  "name": "@kicon/athena",
+  "version": "0.1.0",
+  "description": "Athena package is used for our shared modules across applications.",
+  "license": "BSD-2-Clause",
+  "main": "index.ts"
+}

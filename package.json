@@ -1,11 +1,12 @@
 {
-  "name": "kitpo",
+  "name": "kicon",
   "version": "0.0.1",
   "author": "Andrei Chirila <andrei@chirila.dev>",
   "license": "BSD-2-Clause",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "build": "scripty",
