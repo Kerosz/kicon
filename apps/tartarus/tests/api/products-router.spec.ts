@@ -39,7 +39,7 @@ describe("Products Router", function () {
       expect(res.status).toBe(200);
     });
     it("should return type of 'application/json'", function () {
-      expect(res.type).toMatch(/json/);
+      expect(res.type).toMatch(/json/i);
     });
     it("should return a list of products", function () {
       expect(res.body).toEqual([]);
@@ -98,7 +98,7 @@ describe("Products Router", function () {
     it("should have status code 200", function () {
       expect(res.status).toBe(200);
     });
-    it("should return type 'application/json'", function () {
+    it("should return type of 'application/json'", function () {
       expect(res.type).toMatch(/json/i);
     });
     it("should return a product with the new updated values", function () {
