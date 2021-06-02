@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 // internals
 import { store } from "../../src/models/product";
 // types
-import type { Product, ProductWithoutDbInserts } from "../../src/types/db-schema";
+import type { Product, ProductWithoutDbInserts } from "../../src/types/product-types";
 
 describe("ProductStore Model", function () {
   const idMock = uuid();

@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import usePoolConnection from "../utils/use-pool-connection";
 import { generateUpdateSqlQuery } from "../utils/generators";
 // types
-import type { Product, ProductTestParams, ProductWithoutDbInserts } from "../types/db-schema";
+import type { Product, ProductTestParams, ProductWithoutDbInserts } from "../types";
 
 class ProductStore {
   /**

@@ -3,13 +3,30 @@ import request from "supertest";
 // internals
 import app from "../../src/index";
 import config from "../../src/config/index";
+import AuthService from "../../src/services/auth";
 // types
 import type { Response } from "supertest";
-import type { Product, ProductWithoutDbInserts } from "../../src/types/db-schema";
+import type { Product, ProductWithoutDbInserts } from "../../src/types";
+import type { AuthReturn } from "../../src/services/auth";
 
 describe("Products Router", function () {
   const apiPrefix = config.api.prefix;
   let productId: string;
+  let adminToken: string;
+
+  /**
+   * Creating an admin account for the routes that require admin authorization level
+   */
+  beforeAll(async function () {
+    const authInstance = new AuthService();
+
+    const { token }: AuthReturn = await authInstance.signUpAsAdmin({
+      email: "admin@test.com",
+      password: "admin",
+    });
+
+    adminToken = token;
+  });
 
   describe("GET /products", function () {
     let res: Response;
@@ -40,7 +57,10 @@ describe("Products Router", function () {
     let res: Response;
 
     beforeAll(async function () {
-      res = await request(app).post(`${apiPrefix}/products`).send(mockProduct);
+      res = await request(app)
+        .post(`${apiPrefix}/products`)
+        .set("Authorization", `Bearer ${adminToken}`)
+        .send(mockProduct);
 
       productId = res.body.id;
     });
@@ -71,6 +91,7 @@ describe("Products Router", function () {
     beforeAll(async function () {
       res = await request(app)
         .patch(`${apiPrefix}/products/${productId}`)
+        .set("Authorization", `Bearer ${adminToken}`)
         .send(mockNewProductValues);
     });
 
@@ -97,7 +118,9 @@ describe("Products Router", function () {
     let res: Response;
 
     beforeAll(async function () {
-      res = await request(app).delete(`${apiPrefix}/products/${productId}`);
+      res = await request(app)
+        .delete(`${apiPrefix}/products/${productId}`)
+        .set("Authorization", `Bearer ${adminToken}`);
     });
 
     it("should have status 200", function () {

@@ -1,7 +1,7 @@
 // packages
 import { Router } from "express";
 // internals
-import usersRouter from "./routes/users-router";
+import authRouter from "./routes/auth-router";
 import productsRouter from "./routes/products-router";
 // types
 import type { Response, Request } from "express";
@@ -12,7 +12,7 @@ api.get("/", (_req: Request, res: Response): void => {
   res.send("api");
 });
 
-api.use("/users", usersRouter);
+api.use("/", authRouter);
 api.use("/products", productsRouter);
 
 export default api;

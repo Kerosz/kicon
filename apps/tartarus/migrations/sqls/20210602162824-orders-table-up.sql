@@ -1,6 +1,6 @@
 CREATE TABLE orders (
     id VARCHAR(50) PRIMARY KEY,
-    customer_id VARCHAR(50) REFERENCES customers(id),
+    user_id VARCHAR(50) REFERENCES users(id),
     shipping_address_id VARCHAR(50) REFERENCES addresses(id),
     billing_address_id VARCHAR(50) REFERENCES addresses(id),
     shipping_no VARCHAR(50) NOT NULL,

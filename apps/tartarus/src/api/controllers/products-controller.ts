@@ -2,7 +2,7 @@
 import { store } from "../../models/product";
 // types
 import type { Request, Response } from "express";
-import type { Product, ProductWithoutDbInserts } from "../../types/db-schema";
+import type { Product, ProductWithoutDbInserts } from "../../types";
 
 class ProductsController {
   /**

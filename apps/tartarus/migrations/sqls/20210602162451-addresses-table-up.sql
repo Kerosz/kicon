@@ -1,6 +1,6 @@
 CREATE TABLE addresses (
     id VARCHAR(50) PRIMARY KEY,
-    customer_id VARCHAR(50) REFERENCES customers(id),
+    user_id VARCHAR(50) REFERENCES users(id),
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     address1 VARCHAR(255) NOT NULL,
