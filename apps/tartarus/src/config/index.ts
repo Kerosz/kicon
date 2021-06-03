@@ -6,15 +6,16 @@ import type { DotenvConfigOutput } from "dotenv";
 // Set the NODE_ENV to 'development' by default
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
+const nodeEnv = process.env.NODE_ENV;
 let envFound: DotenvConfigOutput;
 
 /**
  * Loads the env configuration
  * It used the environment name for the .env file if it's not in production
  */
-if (process.env.NODE_ENV !== "production") {
+if (nodeEnv !== "production") {
   envFound = dotenv.config({
-    path: `.env.${process.env.NODE_ENV}`,
+    path: `.env.${nodeEnv}`,
   });
 } else {
   envFound = dotenv.config({
@@ -22,8 +23,8 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-if (process.env.NODE_ENV === "production" && envFound.error) {
-  throw new Error("🤡 Couldn't find .env.development file️");
+if (envFound.error) {
+  throw new Error(`🤡 Couldn't find .env.${nodeEnv} file️ 🤡`);
 }
 
 export default {

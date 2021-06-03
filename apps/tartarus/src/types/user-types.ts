@@ -19,7 +19,7 @@ export interface User {
 
 export type UserWithoutPassword = Omit<User, "password">;
 
-export type UserTestParams = Pick<User, "id" | "created_at" | "updated_at">;
+export type UserDetailsRequest = Omit<User, "id" | "created_at" | "role" | "password" | "email">;
 
 export type UserAuthRequest = Readonly<{
   email: string;

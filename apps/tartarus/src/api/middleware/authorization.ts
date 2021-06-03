@@ -57,7 +57,7 @@ export async function isAuth(req: Request, _res: Response, next: NextFunction): 
  * @param _res Express Response
  * @param next Express NextFunction
  */
-export async function isSeller(req: Request, _res: Response, next: NextFunction) {
+export async function isSeller(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const authorizationHeader: string | undefined = req.headers.authorization;
 
   const token = verifyAuthorizationHeader(authorizationHeader, next) as string;
@@ -78,7 +78,7 @@ export async function isSeller(req: Request, _res: Response, next: NextFunction)
  * @param _res Express Response
  * @param next Express NextFunction
  */
-export async function isAdmin(req: Request, _res: Response, next: NextFunction) {
+export async function isAdmin(req: Request, _res: Response, next: NextFunction): Promise<void> {
   const authorizationHeader: string | undefined = req.headers.authorization;
 
   const token = verifyAuthorizationHeader(authorizationHeader, next) as string;
@@ -90,6 +90,35 @@ export async function isAdmin(req: Request, _res: Response, next: NextFunction) 
 
   if (role !== "admin") {
     const error = new Error("This action is restricted!");
+    next(error);
+  }
+
+  next();
+}
+
+/**
+ * @description Middleware used to authorize a change in data owned by user which made the request
+ *
+ * @param req Express Request
+ * @param _res Express Response
+ * @param next Express NextFunction
+ */
+export async function isOwner(req: Request, _res: Response, next: NextFunction): Promise<void> {
+  const requestChangeId: string = req.params.id;
+  const authorizationHeader: string | undefined = req.headers.authorization;
+
+  const token = verifyAuthorizationHeader(authorizationHeader, next) as string;
+
+  const { id, role } = jwt.verify(token, config.jwt.secret) as JwtUserToken;
+
+  // Bypass the Id check if the role is admin
+  if (role === "admin") {
+    next();
+    return;
+  }
+
+  if (id !== requestChangeId) {
+    const error = new Error("Cannot modify data which is not your own!");
     next(error);
   }
 

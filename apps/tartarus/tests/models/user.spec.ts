@@ -1,5 +1,6 @@
 // internals
 import { store } from "../../src/models/user";
+import { deleteProperty } from "../../src/utils/transformers";
 // types
 import type { Admin, AdminDataRequest, Customer, CustomerDataRequest, User } from "../../src/types";
 
@@ -45,6 +46,7 @@ describe("UserStore Model", function () {
     it("should return the user object queried by it's ID", async function () {
       const result = await store.getUserById(createdUser.id);
 
+      expect(result).toBeTruthy();
       expect(result).toEqual(createdUser);
     });
   });
@@ -85,6 +87,35 @@ describe("UserStore Model", function () {
       expect(result.birthday).toBeNull();
       expect(result.created_at).toBeTruthy();
       expect(result.updated_at).toBeTruthy();
+    });
+  });
+
+  describe("getAllUsers()", function () {
+    it("method should be defined", function () {
+      expect(store.getAllUsers).toBeDefined();
+    });
+
+    it("should return a list of all users", async function () {
+      const result: User[] = await store.getAllUsers();
+
+      deleteProperty<Partial<User>>(createdUser, ["password"]);
+
+      expect(result).toContain(createdUser);
+    });
+  });
+
+  describe("updateUser()", function () {
+    it("method should be defined", function () {
+      expect(store.updateUser).toBeDefined();
+    });
+
+    it("should return an object with the updated user data", async function () {
+      const mockNewUserValues = { display_name: "testinator007" };
+
+      const result: User = await store.updateUser(createdUser.id, mockNewUserValues);
+
+      expect(result).toBeTruthy();
+      expect(result.display_name).toBe(mockNewUserValues.display_name);
     });
   });
 });

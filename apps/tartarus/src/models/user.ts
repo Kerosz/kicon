@@ -1,10 +1,39 @@
 // packages
 import { v4 as uuid } from "uuid";
-// types
-import type { Admin, AdminDataRequest, Customer, CustomerDataRequest, User } from "../types";
+// internals
 import usePoolConnection from "../utils/use-pool-connection";
+import { generateUpdateSqlQuery } from "../utils/generators";
+// types
+import type {
+  Admin,
+  AdminDataRequest,
+  Customer,
+  CustomerDataRequest,
+  User,
+  UserDetailsRequest,
+} from "../types";
 
 class CustomerStore {
+  /**
+   * @description Method used to query a list of all users
+   *
+   * @returns A list of all users data
+   */
+  public async getAllUsers(): Promise<User[]> {
+    try {
+      const sql =
+        "SELECT id, email, first_name, last_name, display_name, role, birthday, updated_at, created_at FROM users";
+
+      return await usePoolConnection<User>(sql);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Could not get customer. Error: ${error.message}`);
+      } else {
+        throw new Error(`Could not get customer. Error: ${error}`);
+      }
+    }
+  }
+
   /**
    * @description Method used to get a customer by it's email
    *
@@ -106,6 +135,33 @@ class CustomerStore {
         throw new Error(`Could not create admin. Error: ${error.message}`);
       } else {
         throw new Error(`Could not create admin. Error: ${error}`);
+      }
+    }
+  }
+
+  /**
+   * @description Method for updating a user details
+   *
+   * @param userId The `ID` of the user to be updated
+   * @param data Data object containing the values to be updated
+   * @returns The updated user data
+   */
+  public async updateUser(userId: string, data: Partial<UserDetailsRequest>): Promise<User> {
+    try {
+      const { sql, params } = generateUpdateSqlQuery({
+        tablename: "users",
+        condition: userId,
+        rawData: data,
+      });
+
+      const [result]: User[] = await usePoolConnection<User>(sql, params);
+
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Could not update user. Error: ${error.message}`);
+      } else {
+        throw new Error(`Could not update user. Error: ${error}`);
       }
     }
   }

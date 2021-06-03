@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 // internals
 import config from "../config/index";
 import { store } from "../models/user";
+import { deleteProperty } from "../utils/transformers";
 // types
 import type {
   Admin,
@@ -55,14 +56,7 @@ class AuthService {
       password: hashedPassword,
     });
 
-    /**
-     * @TODO Can be extracted into a utils function
-     *
-     * Deletes the password property from the customer data object
-     * Casting it to optional properties
-     * So that ts compiler doesn't complain about removing a property that is not optional
-     */
-    delete (customerResult as Partial<Customer>)["password"];
+    deleteProperty<Partial<Customer>>(customerResult, ["password"]);
 
     const token: string = AuthService.getToken(customerResult);
 
@@ -83,8 +77,7 @@ class AuthService {
       password: hashedPassword,
     });
 
-    // See line 60
-    delete (adminResult as Partial<Admin>)["password"];
+    deleteProperty<Partial<Admin>>(adminResult, ["password"]);
 
     const token: string = AuthService.getToken(adminResult);
 
@@ -111,8 +104,7 @@ class AuthService {
     );
 
     if (isPasswordValid) {
-      // See line 60
-      delete (userResult as Partial<User>)["password"];
+      deleteProperty<Partial<User>>(userResult, ["password"]);
 
       const token: string = AuthService.getToken(userResult);
 
