@@ -8,7 +8,7 @@ import type { AdminDataRequest, CustomerDataRequest, UserAuthRequest } from "../
 // TODO: Inject AuthService into the Auth controller so that you do not have to call it every time.
 class AuthController {
   /**
-   * @description It process the newly created user, stores it in storage and sends back the user token
+   * @description It process the newly created user, stores it in storage and sends back the user and token
    *
    * @param req Express Request
    * @param res Express Response
@@ -23,7 +23,7 @@ class AuthController {
   }
 
   /**
-   * @description It processes the auth request and sends back a token containing user data
+   * @description It processes the auth request and sends back the user and token
    *
    * @param req Express Request
    * @param res Express Response

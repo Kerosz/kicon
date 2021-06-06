@@ -73,6 +73,20 @@ class ProductsController {
 
     res.status(200).json({ deleted: true });
   }
+
+  /**
+   * @description It gets a list of top products and sends back it's details
+   *
+   * @param req Express Request
+   * @param res Express Response
+   */
+  public async showTop(req: Request, res: Response): Promise<void> {
+    const queryLimit = req.query.limit as string;
+
+    const result = await store.getTopProducts(queryLimit ? +queryLimit : undefined);
+
+    res.status(200).json(result);
+  }
 }
 
 export default new ProductsController();

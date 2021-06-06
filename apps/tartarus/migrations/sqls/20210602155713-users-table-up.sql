@@ -7,6 +7,6 @@ CREATE TABLE users (
     last_name VARCHAR(100) NOT NULL,
     display_name VARCHAR(150),
     birthday DATE,
-    created_at BIGINT NOT NULL,
-    updated_at BIGINT NOT NULL
+    created_at VARCHAR(255) NOT NULL,
+    updated_at VARCHAR(255) NOT NULL
 )

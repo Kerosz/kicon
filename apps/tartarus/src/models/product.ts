@@ -70,8 +70,8 @@ class ProductStore {
         p.description,
         p.price,
         p.stock,
-        testParams?.created_at || Date.now() /** created_at */,
-        testParams?.updated_at || Date.now() /** updated_at */,
+        testParams?.created_at || Date.now().toString() /** created_at */,
+        testParams?.updated_at || Date.now().toString() /** updated_at */,
       ]);
 
       return result;
@@ -129,6 +129,26 @@ class ProductStore {
         throw new Error(`Could not delete product. Error: ${error.message}`);
       } else {
         throw new Error(`Could not delete product. Error: ${error}`);
+      }
+    }
+  }
+
+  /**
+   * @description Method used to get a top of most popular products by orders
+   *
+   * @param queryLimit The limit of the products to be queried
+   */
+  public async getTopProducts(queryLimit = 5): Promise<Product[]> {
+    try {
+      const sql =
+        "SELECT COUNT(op.product_id), p.id, p.name, p.description, p.price, p.stock FROM order_products AS op INNER JOIN products AS p ON op.product_id = p.id GROUP BY op.product_id, p.id, p.name, p.description, p.price, p.stock ORDER BY op.product_id DESC LIMIT ($1)";
+
+      return await usePoolConnection<Product>(sql, [queryLimit]);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Could not get top products. Error: ${error.message}`);
+      } else {
+        throw new Error(`Could not get top products. Error: ${error}`);
       }
     }
   }

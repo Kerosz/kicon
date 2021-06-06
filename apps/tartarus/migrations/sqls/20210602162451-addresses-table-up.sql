@@ -10,6 +10,6 @@ CREATE TABLE addresses (
     state VARCHAR(255) NOT NULL,
     postal_code VARCHAR(50),
     phone VARCHAR(50) NOT NULL,
-    created_at BIGINT NOT NULL,
-    updated_at BIGINT NOT NULL
+    created_at VARCHAR(255) NOT NULL,
+    updated_at VARCHAR(255) NOT NULL
 )

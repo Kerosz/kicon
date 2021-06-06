@@ -35,10 +35,10 @@ class CustomerStore {
   }
 
   /**
-   * @description Method used to get a customer by it's email
+   * @description Method used to query a user by it's `email`
    *
-   * @param email Customer email to be queried by
-   * @returns The customer data object
+   * @param email User email to be queried by
+   * @returns The user data object
    */
   public async getUserByEmail(email: string): Promise<User> {
     try {
@@ -56,18 +56,24 @@ class CustomerStore {
     }
   }
 
-  public async getUserById(id: string): Promise<User> {
+  /**
+   * @description Method used to query a user by it's `id`
+   *
+   * @param userId User id to be queried by
+   * @returns The user data object
+   */
+  public async getUserById(userId: string): Promise<User> {
     try {
       const sql = "SELECT * FROM users WHERE id = ($1)";
 
-      const [result]: User[] = await usePoolConnection<User>(sql, [id]);
+      const [result]: User[] = await usePoolConnection<User>(sql, [userId]);
 
       return result;
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Could not get customer. Error: ${error.message}`);
+        throw new Error(`Could not get user. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get customer. Error: ${error}`);
+        throw new Error(`Could not get user. Error: ${error}`);
       }
     }
   }
@@ -82,7 +88,9 @@ class CustomerStore {
     try {
       const id = uuid();
       const sql =
-        "INSERT INTO users (id, email, password, role, first_name, last_name, created_at, updated_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
+        "INSERT INTO users (id, email, password, role, " +
+        "first_name, last_name, created_at, updated_at)" +
+        " VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
 
       const [result]: Customer[] = await usePoolConnection<Customer>(sql, [
         id,
@@ -91,8 +99,8 @@ class CustomerStore {
         "customer" /** role */,
         c.first_name,
         c.last_name,
-        Date.now() /** created_at */,
-        Date.now() /** updated_at */,
+        Date.now().toString() /** created_at */,
+        Date.now().toString() /** updated_at */,
       ]);
 
       return result;
@@ -115,7 +123,9 @@ class CustomerStore {
     try {
       const id = uuid();
       const sql =
-        "INSERT INTO users (id, email, password, role, first_name, last_name, display_name, created_at, updated_at) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
+        "INSERT INTO users (id, email, password, role, first_name, " +
+        "last_name, display_name, created_at, updated_at) " +
+        "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
 
       const [result]: Admin[] = await usePoolConnection<Admin>(sql, [
         id,
@@ -125,8 +135,8 @@ class CustomerStore {
         "Administration" /** first_name */,
         "Account" /** last_name */,
         "Admin" /** display_name */,
-        Date.now() /** created_at */,
-        Date.now() /** updated_at */,
+        Date.now().toString() /** created_at */,
+        Date.now().toString() /** updated_at */,
       ]);
 
       return result;
