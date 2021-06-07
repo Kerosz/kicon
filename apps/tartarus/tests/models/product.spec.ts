@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 // internals
 import { store } from "../../src/models/product";
 // types
-import type { Product, ProductWithoutDbInserts } from "../../src/types/product-types";
+import type { Product, ProductWithoutDbInserts } from "../../src/types";
 
 describe("ProductStore Model", function () {
   const idMock = uuid();
@@ -97,6 +97,12 @@ describe("ProductStore Model", function () {
       const expectedResult: Product[] = [];
 
       expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe("getTopProducts()", function () {
+    it("method should be defined", function () {
+      expect(store.getTopProducts).toBeDefined();
     });
   });
 });

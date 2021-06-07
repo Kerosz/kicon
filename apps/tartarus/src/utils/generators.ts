@@ -21,8 +21,8 @@ export function generateUpdateSqlQuery(args: SqlQueryParams): SqlQueryReturn {
 
   const { tablename, condition, rawData } = args;
 
-  let sql: string = `UPDATE ${tablename} SET`;
-  let params: unknown[] = [];
+  let sql = `UPDATE ${tablename} SET`;
+  const params: unknown[] = [];
 
   Object.entries(rawData).forEach(([key, value], index, self) => {
     params.push(value);

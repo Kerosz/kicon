@@ -80,7 +80,7 @@ class UsersController {
    */
   public async update(req: Request, res: Response): Promise<void> {
     const userId: string = req.params.id;
-    const newUserValues: UserDetailsRequest = req.body;
+    const newUserValues: UserDetailsRequest = req.body as UserDetailsRequest;
 
     const result: User = await userStore.updateUser(userId, newUserValues);
 
@@ -101,7 +101,7 @@ class UsersController {
    */
   public async createAddress(req: Request, res: Response): Promise<void> {
     const userId: string = req.params.id;
-    const newUserValues: AddressRequest = req.body;
+    const newUserValues: AddressRequest = req.body as AddressRequest;
 
     const address: Address = await addressStore.saveAddress(userId, newUserValues);
 

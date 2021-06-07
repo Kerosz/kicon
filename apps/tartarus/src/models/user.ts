@@ -25,11 +25,11 @@ class CustomerStore {
         "SELECT id, email, first_name, last_name, display_name, role, birthday, updated_at, created_at FROM users";
 
       return await usePoolConnection<User>(sql);
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not get customer. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get customer. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -47,11 +47,11 @@ class CustomerStore {
       const [result]: User[] = await usePoolConnection<User>(sql, [email]);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not get customer. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get customer. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -69,11 +69,11 @@ class CustomerStore {
       const [result]: User[] = await usePoolConnection<User>(sql, [userId]);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not get user. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get user. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -104,11 +104,11 @@ class CustomerStore {
       ]);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not create customer. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not create customer. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -140,11 +140,11 @@ class CustomerStore {
       ]);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not create admin. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not create admin. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -167,11 +167,11 @@ class CustomerStore {
       const [result]: User[] = await usePoolConnection<User>(sql, params);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not update user. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not update user. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }

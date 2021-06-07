@@ -13,8 +13,8 @@
     "lint": "scripty",
     "lint-fix": "scripty",
     "clean": "rimraf dist *.tsbuildinfo",
-    "prettier": "scripty",
-    "prettier-fix": "yarn prettier --config ../../.prettierrc --write 'src/**/*.ts'"
+    "prettify": "scripty",
+    "prettify-fix": "scripty"
   },
   "dependencies": {
     "argon2": "^0.27.2",

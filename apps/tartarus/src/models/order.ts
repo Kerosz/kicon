@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import usePoolConnection from "../utils/use-pool-connection";
 // types
 import type { Order, OrderProducRequest, OrderProduct, ProcessedOrder } from "../types";
+import { CompleteOrder } from "../types";
 
 class OrderModel {
   /**
@@ -20,7 +21,7 @@ class OrderModel {
       if (error instanceof Error) {
         throw new Error(`Could not get orders. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get orders. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -43,7 +44,7 @@ class OrderModel {
       if (error instanceof Error) {
         throw new Error(`Could not get order. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get order. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -54,21 +55,21 @@ class OrderModel {
    * @param orderId Order id to be queried by
    * @returns The order data object
    */
-  public async getOrderWithProducts(orderId: string): Promise<Order[]> {
+  public async getOrderWithProducts(orderId: string): Promise<CompleteOrder[]> {
     try {
       const sql =
         "SELECT o.shipping_address_id, o.billing_address_id, o.shipping_no, " +
         "o.delivery_date, o.status, o.total, o.total_discount, o.comment, op.quantity, " +
-        "op.price AS product_total_price, p.name, p.description FROM orders AS o " +
+        "op.price AS product_total_price, p.id AS product_id, p.name, p.description FROM orders AS o " +
         "INNER JOIN order_products AS op ON o.id = op.order_id " +
         "INNER JOIN products AS p ON p.id = op.product_id WHERE op.order_id = ($1)";
 
-      return await usePoolConnection<Order>(sql, [orderId]);
+      return await usePoolConnection<CompleteOrder>(sql, [orderId]);
     } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not get order. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get order. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -88,7 +89,7 @@ class OrderModel {
       if (error instanceof Error) {
         throw new Error(`Could not get order. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get order. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -118,7 +119,7 @@ class OrderModel {
       if (error instanceof Error) {
         throw new Error(`Could not get order. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get order. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -157,7 +158,28 @@ class OrderModel {
       if (error instanceof Error) {
         throw new Error(`Could not get order. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get order. Error: ${error}`);
+        throw new Error(String(error));
+      }
+    }
+  }
+
+  /**
+   * @description Method used delete a product from an existing order
+   *
+   * @param orderId The order id for the product to be removed from
+   * @param productId Product id to be removed from the order
+   * @returns The order data object
+   */
+  public async deleteProductFromOrder(orderId: string, productId: string): Promise<void> {
+    try {
+      const sql = "DELETE FROM order_products WHERE order_id = ($1) AND product_id = ($2)";
+
+      await usePoolConnection<OrderProduct>(sql, [orderId, productId]);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw new Error(`Could not delete product from order. Error: ${error.message}`);
+      } else {
+        throw new Error(String(error));
       }
     }
   }

@@ -3,7 +3,13 @@ import OrderService from "../../services/order";
 import { store } from "../../models/order";
 // types
 import type { Request, Response } from "express";
-import type { Order, OrderProducRequest, OrderProduct, OrderRequest } from "../../types";
+import type {
+  CompleteOrder,
+  Order,
+  OrderProducRequest,
+  OrderProduct,
+  OrderRequest,
+} from "../../types";
 
 class OrdersController {
   /**
@@ -60,7 +66,7 @@ class OrdersController {
   public async showComplete(req: Request, res: Response): Promise<void> {
     const orderId: string = req.params.id;
 
-    const order: Order[] = await store.getOrderWithProducts(orderId);
+    const order: CompleteOrder[] = await store.getOrderWithProducts(orderId);
 
     res.status(200).json(order);
   }
@@ -72,7 +78,7 @@ class OrdersController {
    * @param res Express response
    */
   public async create(req: Request, res: Response): Promise<void> {
-    const newOrder: OrderRequest = req.body;
+    const newOrder: OrderRequest = req.body as OrderRequest;
     const orderInstance: OrderService = new OrderService();
 
     const order = await orderInstance.processOrder(newOrder);
@@ -88,7 +94,7 @@ class OrdersController {
    */
   public async insert(req: Request, res: Response): Promise<void> {
     const orderId: string = req.params.id;
-    const newProductValues: OrderProducRequest = req.body;
+    const newProductValues: OrderProducRequest = req.body as OrderProducRequest;
     const orderInstance: OrderService = new OrderService();
 
     const orderProduct: OrderProduct = await orderInstance.addProduct(orderId, newProductValues);

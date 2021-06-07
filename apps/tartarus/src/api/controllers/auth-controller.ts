@@ -14,7 +14,7 @@ class AuthController {
    * @param res Express Response
    */
   public async create(req: Request, res: Response): Promise<void> {
-    const userData: CustomerDataRequest = req.body;
+    const userData: CustomerDataRequest = req.body as CustomerDataRequest;
     const authInstance = new AuthService();
 
     const { user, token }: AuthReturn = await authInstance.signUp(userData);
@@ -29,7 +29,7 @@ class AuthController {
    * @param res Express Response
    */
   public async authenticate(req: Request, res: Response): Promise<void> {
-    const userData: UserAuthRequest = req.body;
+    const userData: UserAuthRequest = req.body as UserAuthRequest;
     const authInstance = new AuthService();
 
     const { user, token }: AuthReturn = await authInstance.signIn(userData);
@@ -44,7 +44,7 @@ class AuthController {
    * @param res Express Response
    */
   public async createAdmin(req: Request, res: Response): Promise<void> {
-    const adminData: AdminDataRequest = req.body;
+    const adminData: AdminDataRequest = req.body as AdminDataRequest;
     const authInstance = new AuthService();
 
     const { user, token }: AuthReturn = await authInstance.signUpAsAdmin(adminData);

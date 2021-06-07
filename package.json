@@ -9,11 +9,12 @@
     "packages/*"
   ],
   "scripts": {
+    "test": "scripty",
     "build": "scripty",
     "lint": "scripty",
-    "lint:fix": "scripty",
-    "prettier": "scripty",
-    "prettier:fix": "scripty",
+    "lint-fix": "scripty",
+    "prettify": "scripty",
+    "prettify-fix": "scripty",
     "clean": "scripty"
   },
   "devDependencies": {
@@ -41,7 +42,8 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "yarn commitlint -E HUSKY-GIT-PARAMS"
+      "commit-msg": "yarn commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "yarn test"
     }
   }
 }

@@ -38,7 +38,7 @@ class ProductsController {
    * @param res Express response
    */
   public async create(req: Request, res: Response): Promise<void> {
-    const newProduct: ProductWithoutDbInserts = req.body;
+    const newProduct: ProductWithoutDbInserts = req.body as ProductWithoutDbInserts;
 
     const result: Product = await store.saveProduct(newProduct);
 
@@ -53,7 +53,7 @@ class ProductsController {
    */
   public async update(req: Request, res: Response): Promise<void> {
     const productId: string = req.params.id;
-    const newProductValues: ProductWithoutDbInserts = req.body;
+    const newProductValues: ProductWithoutDbInserts = req.body as ProductWithoutDbInserts;
 
     const result: Product = await store.updateProduct(productId, newProductValues);
 

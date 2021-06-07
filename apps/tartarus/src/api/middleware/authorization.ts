@@ -58,7 +58,7 @@ export async function isAuth(req: Request, _res: Response, next: NextFunction): 
  * @param _res Express Response
  * @param next Express NextFunction
  */
-export async function isSeller(req: Request, _res: Response, next: NextFunction): Promise<void> {
+export function isSeller(req: Request, _res: Response, next: NextFunction): void {
   const authorizationHeader: string | undefined = req.headers.authorization;
 
   const token = verifyAuthorizationHeader(authorizationHeader, next) as string;
@@ -79,7 +79,7 @@ export async function isSeller(req: Request, _res: Response, next: NextFunction)
  * @param _res Express Response
  * @param next Express NextFunction
  */
-export async function isAdmin(req: Request, _res: Response, next: NextFunction): Promise<void> {
+export function isAdmin(req: Request, _res: Response, next: NextFunction): void {
   const authorizationHeader: string | undefined = req.headers.authorization;
 
   const token = verifyAuthorizationHeader(authorizationHeader, next) as string;
@@ -104,7 +104,7 @@ export async function isAdmin(req: Request, _res: Response, next: NextFunction):
  * @param _res Express Response
  * @param next Express NextFunction
  */
-export async function isOwner(req: Request, _res: Response, next: NextFunction): Promise<void> {
+export function isOwner(req: Request, _res: Response, next: NextFunction): void {
   const requestChangeId: string = req.params.id;
   const authorizationHeader: string | undefined = req.headers.authorization;
 

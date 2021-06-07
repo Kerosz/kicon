@@ -21,7 +21,7 @@ class ProductStore {
       if (error instanceof Error) {
         throw new Error(`Could not get products. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get products. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -43,7 +43,7 @@ class ProductStore {
       if (error instanceof Error) {
         throw new Error(`Could not get product. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get product. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -75,11 +75,11 @@ class ProductStore {
       ]);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not create product. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not create product. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -105,11 +105,11 @@ class ProductStore {
       const [result]: Product[] = await usePoolConnection<Product>(sql, params);
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not update product. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not update product. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -124,11 +124,11 @@ class ProductStore {
       const sql = "DELETE FROM products WHERE id=($1)";
 
       await usePoolConnection<Product>(sql, [productId]);
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not delete product. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not delete product. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }
@@ -144,11 +144,11 @@ class ProductStore {
         "SELECT COUNT(op.product_id), p.id, p.name, p.description, p.price, p.stock FROM order_products AS op INNER JOIN products AS p ON op.product_id = p.id GROUP BY op.product_id, p.id, p.name, p.description, p.price, p.stock ORDER BY op.product_id DESC LIMIT ($1)";
 
       return await usePoolConnection<Product>(sql, [queryLimit]);
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         throw new Error(`Could not get top products. Error: ${error.message}`);
       } else {
-        throw new Error(`Could not get top products. Error: ${error}`);
+        throw new Error(String(error));
       }
     }
   }

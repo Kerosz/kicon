@@ -6,6 +6,14 @@ import usePoolConnection from "../utils/use-pool-connection";
 import type { Address, AddressRequest } from "../types";
 
 class AddressStore {
+  public async getAddressById(addressId: string): Promise<Address> {
+    const sql = "SELECT * FROM addresses WHERE id = ($1)";
+
+    const [result]: Address[] = await usePoolConnection<Address>(sql, [addressId]);
+
+    return result;
+  }
+
   public async getUserAddressById(addressId: string, userId: string): Promise<Address> {
     const sql = "SELECT * FROM addresses WHERE id = ($1) AND user_id = ($2)";
 

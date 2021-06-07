@@ -1,7 +1,9 @@
 // internals
-import { store } from "../models/order";
+import { store as orderStore } from "../models/order";
+import { store as addressStore } from "../models/address";
 // types
 import type {
+  Address,
   Order,
   OrderProducRequest,
   OrderProduct,
@@ -17,9 +19,14 @@ class OrderService {
    * @private
    */
   private static async processShipping(shippingAddressId: string): Promise<ShippingDetails> {
-    // call address model to get the shipping address
+    const address: Address = await addressStore.getAddressById(shippingAddressId);
+
+    if (!address) {
+      throw new Error("Shipping address is invalid!");
+    }
+
     // call an external shipping service which will send back these values
-    const shippingNo: string = shippingAddressId;
+    const shippingNo: string = address.address1;
     const deliveryDate: string = Date.now().toString();
 
     return {
@@ -35,7 +42,7 @@ class OrderService {
    * @param p The product data object to be added to order
    */
   public async addProduct(orderId: string, p: OrderProducRequest): Promise<OrderProduct> {
-    return await store.saveProductToOrder(orderId, p);
+    return await orderStore.saveProductToOrder(orderId, p);
   }
 
   /**
@@ -45,14 +52,14 @@ class OrderService {
    */
   public async processOrder(orderData: OrderRequest): Promise<Order> {
     // TODO: Implement a mailing service which will generate these values
-    const invoiceNo: string = "46355v46bg53vc34653b";
+    const invoiceNo = "46355v46bg53vc34653b";
     const invoiceDate: string = Date.now().toString();
 
     const shippingDetails: ShippingDetails = await OrderService.processShipping(
       orderData.shipping_address_id
     );
 
-    return await store.saveOrder({
+    return await orderStore.saveOrder({
       ...orderData,
       ...shippingDetails,
       invoice_date: invoiceDate,
