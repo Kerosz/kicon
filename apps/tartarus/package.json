@@ -6,6 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "api-report": "scripty",
     "build": "tsc --build",
     "watch": "tsc-watch --esModuleInterop src/index.ts --outDir ./dist --onSuccess 'node ./dist/index.js'",
     "test-tartarus": "scripty",
