@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "api-docs": "scripty",
+    "config-pck": "scripty",
     "test": "scripty",
     "build": "scripty",
     "lint": "scripty",

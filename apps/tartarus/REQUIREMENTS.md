@@ -5,38 +5,83 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Show (args: product id)
+- ShowAll
+- ShowTop
+- Create [admin token required]
+- Update (args: product id) [admin token required]
+- Remove (args: product id) [admin token required]
+
+#### Auth
+- Create N
+- Authenticate
+- Create N Admin
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Show (args: user id)
+- ShowAll[admin token required]
+- ShowAllAddresses (args: user id) [owner token required]
+- ShowAddress (args: user id, address id) [owner token required]
+- ShowAllOrdersByUser (args: user id) [owner token required]
+- Create N Address (args: user id) [owner token required]
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Show (args: order id, query: status ["pending" | "delivered"]) [auth token required]
+- ShowAll [admin token required]
+- ShowComplete (args: order id) [auth token required]
+- Create N [auth token required]
+- Insert Product to Order (args: order id) [auth token required]
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+
+- id `VARCHAR(50) PRIMARY KEY`
+- name `VARCHAR(255) NOT NULL`
+- description `TEXT NOT NULL`
+- price `DECIMAL NOT NULL`
+- stock `INTEGER NOT NULL`
+- created_at `VARCHAR(255) NOT NULL`
+- updated_at `VARCHAR(255) NOT NULL`
 
 #### User
-- id
-- firstName
-- lastName
-- password
+- id `VARCHAR(50) PRIMARY KEY`
+- email `VARCHAR(255) UNIQUE NOT NULL`
+- password `VARCHAR(255) NOT NULL`
+- role `VARCHAR(15) DEFAULT 'customer'`
+- first_name `VARCHAR(100) NOT NULL`
+- last_name `VARCHAR(100) NOT NULL`
+- display_name `VARCHAR(150)`
+- birthday `DATE`
+- created_at `VARCHAR(255) NOT NULL`
+- updated_at `VARCHAR(255) NOT NULL`
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id `VARCHAR(50) PRIMARY KEY`
+- user_id `VARCHAR(50) REFERENCES users(id)`
+- shipping_address_id `VARCHAR(50) REFERENCES addresses(id)`
+- billing_address_id `VARCHAR(50) REFERENCES addresses(id)`
+- shipping_no `VARCHAR(50) NOT NULL`
+- invoice_no `VARCHAR(50) NOT NULL`
+- invoice_date `VARCHAR(255) NOT NULL`
+- delivery_date `VARCHAR(255) NOT NULL`
+- status `VARCHAR(15) NOT NULL`
+- total `NUMERIC NOT NULL`
+- total_discount `NUMERIC NOT NULL DEFAULT 0`
+- comment `TEXT`
+- created_at `VARCHAR(255) NOT NULL`
+- updated_at `VARCHAR(255) NOT NUL`
 
+#### Addresses
+- id `VARCHAR(50) PRIMARY KEY`
+- user_id `VARCHAR(50) REFERENCES users(id)`
+- first_name `VARCHAR(100) NOT NULL`
+- last_name `VARCHAR(100) NOT NULL`
+- address1 `VARCHAR(255) NOT NULL`
+- address2 `VARCHAR(255)`
+- country `VARCHAR(255) NOT NULL`
+- city `VARCHAR(255) NOT NULL`
+- state `VARCHAR(255) NOT NULL`
+- postal_code `VARCHAR(50)`
+- phone `VARCHAR(50) NOT NULL`
+- created_at `VARCHAR(255) NOT NULL`
+- updated_at `VARCHAR(255) NOT NUL`
