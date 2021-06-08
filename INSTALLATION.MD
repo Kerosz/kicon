@@ -1,6 +1,6 @@
 ## First time setup
 
-The first step to running Spectrum locally is downloading the code by cloning the repository:
+The first step to running Kicon locally is downloading the code by cloning the repository:
 
 `gh repo clone Kerosz/kicon`
 
