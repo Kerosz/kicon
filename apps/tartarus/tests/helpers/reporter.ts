@@ -3,7 +3,7 @@ import chalk from "chalk";
 import { DisplayProcessor, SpecReporter, StacktraceOption } from "jasmine-spec-reporter";
 
 class CustomProcessor extends DisplayProcessor {
-  public displayJasmineStarted(_info: jasmine.SuiteResult, log: string): string {
+  public displayJasmineStarted(_info: jasmine.JasmineStartedInfo, log: string): string {
     return `${chalk.green("✓")} Kicon ${log}`;
   }
 }

@@ -75,6 +75,9 @@ web_modules/
 .env.development
 .env.production
 
+# other configs
+database.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

@@ -17,6 +17,10 @@
 
 This directory is called tartarus ([/ˈtɑːrtərəs/](https://en.wikipedia.org/wiki/Tartarus)), it is currently used for our NodeJs backend.
 
+## How can I contribute?
+
+To see a detailed installation process please refer to the [Installation and Contributing guide which can be found here](../../INSTALLATION.MD).
+
 ## Codebase
 
 ### Technologies
@@ -48,8 +52,3 @@ tartarus/
 ├──── utils                # Helper functions
 └── tests                  # Specs for testing
 ```
-
-
-## How can I contribute?
-
-To see a detailed installation process please refer to the [Installation and Contributing guide which can be found here](../../INSTALLATION.MD).
