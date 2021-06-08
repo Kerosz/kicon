@@ -26,6 +26,59 @@ Kicon has big installation steps:
     - `CREATE DATABASE store_dev;`
     - Modify `database.json` and `.env.development`/`.env.test` with your database configuration _(NOTE: Database name for test env in both .env.test as well as database.json/test should be `store_test`)_
     
+
+#### Environment files
+<details>
+  <summary>Test Environment Example</summary>
+
+```sh
+# env.test example
+
+# Application
+HOSTNAME=http://localhost
+PORT=8484
+API_VERSION=/v1
+
+# Security
+ARGON_SECRET=testSecret
+JWT_SECRET=testSecret
+
+# Postgres
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DATABASE=store_test
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password123
+```
+
+</details>
+
+<details>
+  <summary>Development Environment Example</summary>
+
+```sh
+# env.development example
+
+# Application
+HOSTNAME=http://localhost
+PORT=1234
+API_VERSION=/v1
+
+# Security
+ARGON_SECRET=devSecret
+JWT_SECRET=devSecret
+
+# Postgres
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DATABASE=store_dev
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password123
+```
+
+</details>
+
+### API Endpoints
+The API endpoints can be found temporarily in [tartarus REQUIREMENTS.MD](apps/tartarus/REQUIREMENTS.md), until proper API documentation will be available.
+
 ### Running the app locally
 Once everything in the installation is done, you can simply `cd` into apps tartarus directory and run `yarn watch`
 
